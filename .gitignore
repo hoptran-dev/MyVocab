@@ -1,0 +1,12 @@
+node_modules/
+build/
+dist/
+dev-dist/
+.playwright-cli/
+data/*.db-shm
+data/*.db-wal
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example

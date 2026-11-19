@@ -1,0 +1,6 @@
+{
+  "name": "HopVocab — Học Từ Vựng Thông Minh & Nhớ Sâu SRS",
+  "description": "Ứng dụng học từ vựng tiếng Anh thông minh với phương pháp lặp lại ngắt quãng 6 cấp độ nhớ sâu, 6 chế độ mini-game, AI tách từ vựng theo ngữ cảnh văn bản, tra cứu Google Search và gia sư Gemini AI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
