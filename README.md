@@ -27,13 +27,28 @@ git push -u origin main
 4. Truy cập trang web tại:
    `https://<TEN-GITHUB-CUA-BAN>.github.io/<TEN-REPO>/`
 
-> **Lưu ý về tính năng trên GitHub Pages (web tĩnh):**
-> - **Hoạt động 100% không cần server:** Học Nhớ sâu 6 cấp độ (tùy chọn ôn cấp 6), toàn bộ trò chơi luyện từ, quản lý bộ thẻ, nhập/xuất JSON, thêm từ thủ công/hàng loạt, phát âm giọng đọc, cài đặt app trên máy tính (PWA) và **Từ điển Offline** tích hợp sẵn.
-> - **Các tính năng AI (Tách từ bằng Gemini AI, Tạo bộ từ AI, Scan ảnh, Tra Google Search):** Cần có backend Node.js (`server.ts`) giữ `GEMINI_API_KEY` bảo mật. Nếu bạn triển khai `server.ts` lên Cloud Run / Render / Railway, chỉ cần thêm biến môi trường trong GitHub: **Settings → Secrets and variables → Actions → Variables → New repository variable** tên `VITE_API_BASE_URL` trỏ tới URL backend của bạn (ví dụ `https://myvocab-api.onrender.com`), rồi chạy lại workflow.
+> **Tại sao tính năng AI không chạy trực tiếp trên GitHub Pages thuần?**
+> GitHub Pages là máy chủ **web tĩnh** (chỉ phát file HTML/JS/CSS), không có Node.js backend để giữ `GEMINI_API_KEY` an toàn ở phía server. Vì vậy trên bản tĩnh GitHub Pages, toàn bộ tính năng **Nhớ sâu 6 cấp, trò chơi, kho từ vựng, thêm từ thủ công/hàng loạt, phát âm, PWA và Từ điển Offline** chạy 100%, còn các tính năng Gemini AI cần kết nối tới máy chủ backend (`server.ts`).
 
 ---
 
-## 2. Chạy đầy đủ (cả AI + Server) trên máy tính cá nhân
+## 2. Bật đầy đủ tính năng Gemini AI từ chính repo GitHub (Miễn phí với Render)
+
+Dự án đã có sẵn file `render.yaml` để chạy cả giao diện lẫn máy chủ AI `server.ts` hoàn toàn miễn phí từ repo GitHub của bạn:
+
+1. Đăng nhập [render.com](https://render.com) bằng tài khoản GitHub.
+2. Chọn **New + → Blueprint** (hoặc **Web Service**) → chọn repository MyVocab của bạn.
+3. Render tự đọc `render.yaml` → nhập `GEMINI_API_KEY` vào ô Environment Variable trên trang quản trị Render → nhấn **Apply / Deploy**.
+4. Sau khi triển khai xong (có link dạng `https://myvocab-xxxx.onrender.com`), bạn có **2 cách dùng**:
+   - **Cách 1 (Đơn giản nhất):** Mở thẳng link `https://myvocab-xxxx.onrender.com` — chạy trọn bộ giao diện + PWA + đầy đủ Gemini AI trên cùng một địa chỉ.
+   - **Cách 2 (Vẫn dùng link `github.io` của GitHub Pages):** Vào repo GitHub → **Settings → Secrets and variables → Actions → tab Variables → New repository variable**:
+     - **Name:** `VITE_API_BASE_URL`
+     - **Value:** `https://myvocab-xxxx.onrender.com` *(không có dấu `/` ở cuối)*
+     - Sau đó vào tab **Actions → Deploy MyVocab to GitHub Pages → Run workflow** để build lại — mọi tính năng AI sẽ chạy mượt ngay trên trang GitHub Pages của bạn!
+
+---
+
+## 3. Chạy đầy đủ (cả AI + Server) trên máy tính cá nhân
 
 ```bash
 npm install

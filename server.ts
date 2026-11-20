@@ -3,7 +3,6 @@ import express from 'express';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { DatabaseSync } from 'node:sqlite';
 import { GoogleGenAI, Type } from '@google/genai';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -157,10 +156,18 @@ async function startServer() {
 
   // ==================== OFFLINE ENGLISH-VIETNAMESE DICTIONARY (SQLite) ====================
   const dictDbPath = path.resolve(__dirname, 'data', 'dictionary_en_vi.db');
-  let dictDb: DatabaseSync | null = null;
+  type SqliteStatement = {
+    get: (...params: unknown[]) => unknown;
+    all: (...params: unknown[]) => unknown[];
+  };
+  type SqliteDbLike = {
+    prepare: (sql: string) => SqliteStatement;
+  };
+  let dictDb: SqliteDbLike | null = null;
   if (fs.existsSync(dictDbPath)) {
     try {
-      dictDb = new DatabaseSync(dictDbPath, { readOnly: true });
+      const sqliteMod = await import('node:sqlite');
+      dictDb = new sqliteMod.DatabaseSync(dictDbPath, { readOnly: true }) as unknown as SqliteDbLike;
       console.log(`[OfflineDict] Loaded SQLite dictionary from ${dictDbPath}`);
     } catch (err) {
       console.error('[OfflineDict] Failed to open SQLite DB:', err);
@@ -662,9 +669,9 @@ ${includeSvg ? '- "svg": a cute, clean, flat-vector SVG illustration (<svg xmlns
       }
 
       const ai = getAiClient();
-      const response = await withGeminiRetry(() =>
+      const { result: response } = await callWithFallback((modelName) =>
         ai.models.generateContent({
-          model: 'gemini-4-hydrogen',
+          model: modelName,
           contents: `Tra cứu từ/cụm từ tiếng Anh "${query.trim()}" bằng dữ liệu thực tế mới nhất trên web. Trả lời rõ ràng bằng tiếng Việt kết hợp ví dụ tiếng Anh theo cấu trúc ngắn gọn:
 1. **Phiên âm IPA & Loại từ**
 2. **Nghĩa tiếng Việt phổ biến & sắc thái hiện đại**

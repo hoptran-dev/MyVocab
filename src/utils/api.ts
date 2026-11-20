@@ -39,7 +39,7 @@ export function staticAssetUrl(relativePath: string): string {
 }
 
 export const STATIC_HOST_AI_NOTICE =
-  'Tính năng AI cần chạy cùng máy chủ backend (Node.js) có GEMINI_API_KEY. Trên bản tĩnh GitHub Pages, bạn vẫn sử dụng đầy đủ Nhớ sâu 6 cấp, tất cả trò chơi, thêm từ thủ công/hàng loạt và Từ điển Offline.';
+  'GitHub Pages chỉ chạy web tĩnh nên không thể chạy máy chủ AI (Node.js). Để bật đầy đủ tính năng AI, hãy triển khai repo GitHub này lên Render (đã có sẵn file render.yaml) và gắn biến VITE_API_BASE_URL trong GitHub Actions — hoặc truy cập trực tiếp link Render. Trên bản tĩnh hiện tại, bạn vẫn dùng bình thường Nhớ sâu 6 cấp, tất cả trò chơi, thêm từ thủ công/hàng loạt và Từ điển Offline.';
 
 export async function parseApiJson<T>(res: Response, fallbackError: string): Promise<T> {
   const contentType = res.headers.get('content-type') || '';
