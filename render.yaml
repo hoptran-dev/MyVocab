@@ -3,12 +3,10 @@ services:
     name: myvocab
     runtime: node
     plan: free
-    buildCommand: npm install --no-audit --no-fund --legacy-peer-deps && npm run build
+    buildCommand: npm install --include=dev --no-audit --no-fund --legacy-peer-deps && npm run build
     startCommand: npm start
     healthCheckPath: /api/health
     envVars:
-      - key: NODE_ENV
-        value: production
       - key: NODE_VERSION
         value: 22.14.0
       - key: GEMINI_API_KEY
