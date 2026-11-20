@@ -21,8 +21,8 @@ git push -u origin main
 ```
 
 ### Bước 2: Bật GitHub Pages
-1. Vào repository trên GitHub → chọn **Settings** → **Pages**.
-2. Ở mục **Build and deployment → Source**, chọn **GitHub Actions**.
+1. Đảm bảo repository đang ở chế độ **Public** (nếu dùng tài khoản GitHub Free, GitHub Pages chỉ hoạt động trên repo Public).
+2. Vào repository trên GitHub → chọn **Settings** → **Pages** → mục **Build and deployment → Source**, chọn **GitHub Actions** *(workflow cũng đã bật sẵn `enablement: true` để tự kích hoạt Pages cho repo Public)*.
 3. Chờ khoảng 1–2 phút trong tab **Actions** để workflow `Deploy MyVocab to GitHub Pages` chạy xong.
 4. Truy cập trang web tại:
    `https://<TEN-GITHUB-CUA-BAN>.github.io/<TEN-REPO>/`
