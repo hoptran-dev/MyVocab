@@ -41,10 +41,7 @@ Dự án đã có sẵn file `render.yaml` để chạy cả giao diện lẫn m
 3. Render tự đọc `render.yaml` → nhập `GEMINI_API_KEY` vào ô Environment Variable trên trang quản trị Render → nhấn **Apply / Deploy**.
 4. Sau khi triển khai xong (có link dạng `https://myvocab-xxxx.onrender.com`), bạn có **2 cách dùng**:
    - **Cách 1 (Đơn giản nhất):** Mở thẳng link `https://myvocab-xxxx.onrender.com` — chạy trọn bộ giao diện + PWA + đầy đủ Gemini AI trên cùng một địa chỉ.
-   - **Cách 2 (Vẫn dùng link `github.io` của GitHub Pages):** Vào repo GitHub → **Settings → Secrets and variables → Actions → tab Variables → New repository variable**:
-     - **Name:** `VITE_API_BASE_URL`
-     - **Value:** `https://myvocab-xxxx.onrender.com` *(không có dấu `/` ở cuối)*
-     - Sau đó vào tab **Actions → Deploy MyVocab to GitHub Pages → Run workflow** để build lại — mọi tính năng AI sẽ chạy mượt ngay trên trang GitHub Pages của bạn!
+   - **Cách 2 (Vẫn dùng link `github.io` của GitHub Pages):** Workflow `.github/workflows/deploy.yml` đã trỏ sẵn mặc định tới backend `https://myvocab-3gcj.onrender.com`. Nếu đổi sang URL backend khác, bạn chỉ cần vào repo GitHub → **Settings → Secrets and variables → Actions → tab Variables → New repository variable** tên `VITE_API_BASE_URL` với giá trị URL mới *(không có dấu `/` ở cuối)* rồi chạy lại workflow.
 
 ---
 

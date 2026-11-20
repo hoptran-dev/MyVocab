@@ -45,7 +45,7 @@ jobs:
       - name: Build static web app for GitHub Pages
         env:
           VITE_BASE_PATH: ${{ steps.pages.outputs.base_path }}/
-          VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL }}
+          VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL || 'https://myvocab-3gcj.onrender.com' }}
         run: |
           npm run build
           cp dist/index.html dist/404.html
